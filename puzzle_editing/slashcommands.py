@@ -28,7 +28,7 @@ def slashCommandHandler(request):
         return HttpResponse("invalid request signature", status=401)
     payload = json.loads(request.body)
 
-    logger.warning("The Payload %s", payload)
+    logger.error("The Payload %s", payload)
 
     if payload["type"] == 1:
         # this is a ping
