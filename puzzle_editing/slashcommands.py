@@ -19,9 +19,7 @@ request_logger = logging.getLogger("router")
 
 @csrf_exempt
 def slashCommandHandler(request):
-    request_logger.error("The Request: %s", request)
-    request_logger.error("The Headers: %s", request.headers)
-    request_logger.error("The Body: %s", request.body)
+    #request_logger.error("The Request: %s", request)
     if not verify_key(
         request.body,
         request.headers["X-Signature-Ed25519"],
@@ -30,8 +28,6 @@ def slashCommandHandler(request):
     ):
         return HttpResponse("invalid request signature", status=401)
     payload = json.loads(request.body)
-
-    request_logger.error("The Payload is: %s", payload)
 
     if payload["type"] == 1:
         # this is a ping
