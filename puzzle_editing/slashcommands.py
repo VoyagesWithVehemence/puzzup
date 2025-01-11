@@ -15,11 +15,13 @@ from .discord import MsgPayload
 from .view_helpers import external_puzzle_url
 from puzzle_editing.models import Puzzle
 
-request_logger = logging.getLogger("router")
+request_logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def slashCommandHandler(request):
-    request_logger.error("The Request is: %s", request)
+    request_logger.error("The Request: %s", request)
+    request_logger.error("The Headers: %s", request.headers)
+    request_logger.error("The Body: %s", request.body)
     if not verify_key(
         request.body,
         request.headers["X-Signature-Ed25519"],
