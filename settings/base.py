@@ -197,6 +197,11 @@ LOGGING = {
             "handlers": ["puzzle"],
             "level": "DEBUG",
         },
+        "request_logger": {
+            "handlers": ["request"],
+            "level": "DEBUG",
+            "propagate": True,
+        },
     },
 }
 
