@@ -15,7 +15,7 @@ from .discord import MsgPayload
 from .view_helpers import external_puzzle_url
 from puzzle_editing.models import Puzzle
 
-logger = logging.getLogger(__name__)
+request_logger = logging.getLogger("request_logger")
 
 @csrf_exempt
 def slashCommandHandler(request):
@@ -28,7 +28,7 @@ def slashCommandHandler(request):
         return HttpResponse("invalid request signature", status=401)
     payload = json.loads(request.body)
 
-    logger.error("The Payload %s", payload)
+    request_logger.error("The Payload is: %s", payload)
 
     if payload["type"] == 1:
         # this is a ping
