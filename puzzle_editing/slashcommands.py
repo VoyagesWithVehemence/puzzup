@@ -15,7 +15,7 @@ from .discord import MsgPayload
 from .view_helpers import external_puzzle_url
 from puzzle_editing.models import Puzzle
 
-request_logger = logging.getLogger(__name__)
+request_logger = logging.getLogger("router")
 
 @csrf_exempt
 def slashCommandHandler(request):
