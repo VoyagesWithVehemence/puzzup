@@ -17,6 +17,7 @@ from puzzle_editing.models import Puzzle
 
 request_logger = logging.getLogger("router")
 
+
 @csrf_exempt
 def slashCommandHandler(request):
     #request_logger.error("The Request: %s", request)
