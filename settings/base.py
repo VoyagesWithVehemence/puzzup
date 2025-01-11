@@ -236,10 +236,19 @@ REST_FRAMEWORK = {
 }
 
 DRIVE_SETTINGS = {}
-credentials_file = BASE_DIR / "credentials/drive-credentials.json"
-if credentials_file.is_file():
-    with open(credentials_file, "rt") as f:
-        DRIVE_SETTINGS["credentials"] = json.load(f)
+# credentials_file = BASE_DIR / "credentials/drive-credentials.json"
+# if credentials_file.is_file():
+#     with open(credentials_file, "rt") as f:
+#         DRIVE_SETTINGS["credentials"] = json.load(f)
+# Read credentials from an environment variable
+credentials_env_var = os.getenv("GOOGLE_SERVICE_ACCOUNT_CREDENTIALS")
+if credentials_env_var:
+    try:
+        DRIVE_SETTINGS["credentials"] = json.loads(credentials_env_var)
+    except json.JSONDecodeError:
+        raise ValueError("Invalid JSON in GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variable")
+else:
+    raise EnvironmentError("Environment variable GOOGLE_SERVICE_ACCOUNT_CREDENTIALS is not set")
 
 # Discord integration
 DISCORD_GUILD_ID = os.environ.get("DISCORD_GUILD_ID")
