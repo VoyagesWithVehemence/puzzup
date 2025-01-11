@@ -64,7 +64,7 @@ class GoogleManager:
             self.files.create(body=file_metadata, fields="id").execute().get("id")
         )
         self.move_to_folder(folder_id, settings.PUZZLE_DRAFT_FOLDER_ID)
-        self.transfer_ownership(folder_id)
+        #self.transfer_ownership(folder_id)
         return folder_id
 
     def create_brainstorm_sheet(self, puzzle, folder_id):
@@ -103,7 +103,7 @@ class GoogleManager:
             .get("id")
         )
         self.move_to_folder(template_id, settings.FACTCHECKING_FOLDER_ID)
-        self.transfer_ownership(template_id)
+        #self.transfer_ownership(template_id)
         return template_id
 
     def transfer_ownership(self, file_id):
@@ -159,7 +159,7 @@ class GoogleManager:
         ).execute()
 
         self.move_to_folder(spreadsheet_id, folder_id)
-        self.transfer_ownership(spreadsheet_id)
+        #self.transfer_ownership(spreadsheet_id)
         return spreadsheet_id
 
     def _create_doc(self, title, folder_id):
@@ -175,7 +175,7 @@ class GoogleManager:
             .get("documentId")
         )
         self.move_to_folder(doc_id, folder_id)
-        self.transfer_ownership(doc_id)
+        #self.transfer_ownership(doc_id)
         return doc_id
 
     def get_gdoc_html(self, file_id):
