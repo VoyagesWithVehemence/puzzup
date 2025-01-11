@@ -3,7 +3,7 @@ from sentry_sdk.integrations.django import DjangoIntegration
 
 from settings.base import *  # pylint: disable=unused-wildcard-import,wildcard-import
 
-DEBUG = False
+DEBUG = True
 SECURE_SSL_REDIRECT = True
 
 ALLOWED_HOSTS = ["127.0.0.1", ".puzzup.vehemence.org"]
