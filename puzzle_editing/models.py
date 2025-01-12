@@ -1027,15 +1027,12 @@ class TestsolveSession(models.Model):
     )
 
     def save(self, *args, **kwargs):
-        print("JEFF TestsolveSession->save()")
         is_new = self._state.adding
-        print(f"JEFF is_new = {is_new}")
         super().save(*args, **kwargs)
         # Create a thread in Discord and a Google Sheets for new testsolve sessions.
         # We call super().save first in order to ensure the id for this instance
         # exists.
         if is_new:
-            print(f"JEFF Entering is_new conditional")
             discord_thread_id, google_sheets_id = create_testsolve_thread(self)
             self.discord_thread_id = discord_thread_id
             self.google_sheets_id = google_sheets_id
@@ -1122,7 +1119,6 @@ class TestsolveSession(models.Model):
 
 
 def create_testsolve_thread(instance: TestsolveSession):
-    print ("JEFF entering create_testsolve_thread()")
     if discord.enabled():
         try:
             puzzle = instance.puzzle
@@ -1134,7 +1130,6 @@ def create_testsolve_thread(instance: TestsolveSession):
                 settings.DISCORD_TESTSOLVE_CHANNEL_ID,
                 f"Temp message for testsolve session {instance.id}.",
             )
-            print (f"JEFF message {message}")
             thread = discord.build_testsolve_thread(instance, c.guild_id)
             thread = c.save_thread(thread, message["id"])
             c.delete_message(settings.DISCORD_TESTSOLVE_CHANNEL_ID, message["id"])
