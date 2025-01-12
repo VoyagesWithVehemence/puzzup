@@ -2259,7 +2259,7 @@ def puzzle_escape(request, id):
     puzzle: Puzzle = get_object_or_404(Puzzle, id=id)
     user: User = request.user
 
-    logger.error(f"JEFF puzzle_escape POST = {request.POST}")
+    print(f"JEFF puzzle_escape POST = {request.POST}", file=sys.stderr)
 
     if request.method == "POST":
         if "unspoil" in request.POST:
