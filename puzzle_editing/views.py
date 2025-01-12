@@ -2255,9 +2255,7 @@ def puzzle_people(request, id):
 def puzzle_escape(request, id):
     puzzle: Puzzle = get_object_or_404(Puzzle, id=id)
     user: User = request.user
-
-    print(f"JEFF puzzle_escape POST => {request.POST}")
-
+    
     if request.method == "POST":
         if "unspoil" in request.POST:
             puzzle.spoiled.remove(user)
