@@ -33,7 +33,8 @@ import puzzle_editing.google_integration as google
 import puzzle_editing.status as status
 from puzzle_editing.git import GitRepo
 
-logger = logging.getLogger(__name__)
+#logger = logging.getLogger(__name__)
+logger = logging.getLogger("router")
 
 
 class PuzzupUserManager(UserManager):
@@ -1028,15 +1029,19 @@ class TestsolveSession(models.Model):
     )
 
     def save(self, *args, **kwargs):
+        logger.error("JEFF TestsolveSession->save()")
         is_new = self._state.adding
+        logger.error(f"JEFF is_new = {is_new}")
         super().save(*args, **kwargs)
         # Create a thread in Discord and a Google Sheets for new testsolve sessions.
         # We call super().save first in order to ensure the id for this instance
         # exists.
         if is_new:
+            logger.error(f"JEFF Entering is_new conditional")
             discord_thread_id, google_sheets_id = create_testsolve_thread(self)
             self.discord_thread_id = discord_thread_id
             self.google_sheets_id = google_sheets_id
+            logger.error(f"thread id = {discord_thread_id}, sheet id = {google_sheets_id}")
             super().save(*args, **kwargs)
 
     @property
