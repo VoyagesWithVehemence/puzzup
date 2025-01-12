@@ -1022,8 +1022,8 @@ class TestsolveSession(models.Model):
         blank=True,
     )
     
-    discord_channel_id = settings.DISCORD_TESTSOLVE_CHANNEL_ID
-    
+    discord_guild_id = settings.DISCORD_GUILD_ID
+
     google_sheets_id = models.CharField(
         max_length=64,
         blank=True,
