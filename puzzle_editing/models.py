@@ -1122,6 +1122,7 @@ class TestsolveSession(models.Model):
 
 
 def create_testsolve_thread(instance: TestsolveSession):
+    print ("JEFF entering create_testsolve_thread()")
     if discord.enabled():
         try:
             puzzle = instance.puzzle
@@ -1133,6 +1134,7 @@ def create_testsolve_thread(instance: TestsolveSession):
                 settings.DISCORD_TESTSOLVE_CHANNEL_ID,
                 f"Temp message for testsolve session {instance.id}.",
             )
+            print (f"JEFF message {message}")
             thread = discord.build_testsolve_thread(instance, c.guild_id)
             thread = c.save_thread(thread, message["id"])
             c.delete_message(settings.DISCORD_TESTSOLVE_CHANNEL_ID, message["id"])
@@ -1162,7 +1164,8 @@ def create_testsolve_thread(instance: TestsolveSession):
             )
 
             return (thread.id, sheet_id)
-        except Exception:
+        except Exception as e:
+            print (e)
             logger.exception("Failed to create Discord thread or Google sheets.")
     return ("", "")
 
