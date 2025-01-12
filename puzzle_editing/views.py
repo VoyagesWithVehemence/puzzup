@@ -1,6 +1,7 @@
 import csv
 import datetime
 import json
+import logging
 import operator
 import os
 import random
@@ -95,6 +96,7 @@ from puzzle_editing.models import User
 # pylint: disable=redefined-outer-name
 # pylint: disable=redefined-builtin
 
+logger = logging.getLogger("router")
 
 def get_sessions_with_joined_and_current(user):
     return TestsolveSession.objects.annotate(
@@ -2256,6 +2258,8 @@ def puzzle_people(request, id):
 def puzzle_escape(request, id):
     puzzle: Puzzle = get_object_or_404(Puzzle, id=id)
     user: User = request.user
+
+    logger.error(f"JEFF puzzle_escape POST = {request.POST}")
 
     if request.method == "POST":
         if "unspoil" in request.POST:
