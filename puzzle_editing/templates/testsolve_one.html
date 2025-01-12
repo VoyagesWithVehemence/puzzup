@@ -65,9 +65,14 @@
             <hr/>
             {% if session.google_sheets_id %}
                 <a href="https://docs.google.com/spreadsheets/d/{{ session.google_sheets_id }}">
-                    Link to Spreadsheet
+                    Testsolving spreadsheet
                 </a>
             {% endif %}
+			{% if session.discord_thread_id %}
+				<a href="https://discord.com/channels/{{ session.discord_channel_id }}/{{ session.discord_thread_id }}">
+					Testsolving Discord thread
+				</a>
+			{% endif %}
 		</div>
 
 		{% if participation %}
