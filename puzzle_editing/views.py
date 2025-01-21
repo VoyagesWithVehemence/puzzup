@@ -705,7 +705,7 @@ def puzzle_new(request):
                 status_change="II",
             )
             subscriptions = (
-                StatusSubscription.objects.filter(status=new_status)
+                StatusSubscription.objects.filter(puzzle.status)
                 .exclude(user__email="")
                 .values_list("user__email", flat=True)
             )
