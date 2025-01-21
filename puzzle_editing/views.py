@@ -1574,7 +1574,7 @@ def puzzle(request: HttpRequest, id, slug=None):  # noqa: C901
             )
             if subscriptions:
                 status_template = status.get_template(new_status)
-                template = "emails/{}".format(status_template)
+                template = "emails/{}".format(status_template) 
 
                 messaging.send_mail_wrapper(
                     "{} ➡ {}".format(puzzle.spoiler_free_title(), status_display),
