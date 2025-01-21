@@ -1566,6 +1566,28 @@ def puzzle(request: HttpRequest, id, slug=None):  # noqa: C901
             # not the end of the world.
             if emoji and comment:
                 CommentReaction.toggle(emoji, comment, user)
+        elif puzzle.status == status.INITIAL_IDEA:
+            subscriptions = (
+                StatusSubscription.objects.filter(status=new_status)
+                .exclude(user__email="")
+                .values_list("user__email", flat=True)
+            )
+            if subscriptions:
+                status_template = status.get_template(new_status)
+                template = "emails/{}".format(status_template)
+
+                messaging.send_mail_wrapper(
+                    "{} ➡ {}".format(puzzle.spoiler_free_title(), status_display),
+                    template,
+                    {
+                        "request": request,
+                        "puzzle": puzzle,
+                        "user": user,
+                        "status": status_display,
+                    },
+                    subscriptions,
+                )
+
         # refresh
         return redirect(urls.reverse("puzzle", args=[id]))
 
