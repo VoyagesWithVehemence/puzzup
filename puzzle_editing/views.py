@@ -711,7 +711,7 @@ def puzzle_new(request):
             )
             if subscriptions:
                 status_display = status.get_display("INITIAL_IDEA")
-                status_template = status.get_template()
+                status_template = status.get_template(puzzle.status)
                 template = "emails/{}".format(status_template) 
                 
                 messaging.send_mail_wrapper(
